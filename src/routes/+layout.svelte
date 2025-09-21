@@ -1,9 +1,11 @@
 ﻿<script lang="ts">
-	import '../app.css';
-	import favicon from '$lib/assets/my-favicon.png';
+	import "../app.css";
+	import favicon from "$lib/assets/my-favicon.png";
 
 	let { children } = $props();
 	let mobileMenuOpen = $state(false);
+
+	import headerImage from "$lib/assets/space-game-character-pixels_42117.png";
 
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
@@ -13,7 +15,10 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<title>On The Stack - Retro Code Blog</title>
-	<meta name="description" content="A retro-themed developer blog exploring code, technology, and digital adventures at onthestack.io" />
+	<meta
+		name="description"
+		content="A retro-themed developer blog exploring code, technology, and digital adventures at onthestack.io"
+	/>
 	<meta property="og:site_name" content="On The Stack" />
 	<meta property="og:url" content="https://onthestack.io" />
 	<meta property="og:type" content="website" />
@@ -25,6 +30,14 @@
 <div class="app">
 	<header class="header">
 		<nav class="nav container">
+			<div class="header-image">
+				<img
+					src={headerImage}
+					alt="Pixel character"
+					class="header-img"
+				/>
+			</div>
+
 			<div class="nav-brand">
 				<a href="/" class="nav-logo">
 					<span class="text-accent">&gt;</span>
@@ -40,7 +53,11 @@
 			</div>
 
 			<!-- Mobile Menu Button -->
-			<button class="mobile-menu-btn" onclick={toggleMobileMenu} aria-label="Toggle mobile menu">
+			<button
+				class="mobile-menu-btn"
+				onclick={toggleMobileMenu}
+				aria-label="Toggle mobile menu"
+			>
 				<span class="hamburger"></span>
 				<span class="hamburger"></span>
 				<span class="hamburger"></span>
@@ -50,8 +67,14 @@
 		<!-- Mobile Navigation -->
 		{#if mobileMenuOpen}
 			<div class="mobile-nav">
-				<a href="/" class="mobile-nav-link" onclick={toggleMobileMenu}>Blog</a>
-				<a href="/about" class="mobile-nav-link" onclick={toggleMobileMenu}>About</a>
+				<a href="/" class="mobile-nav-link" onclick={toggleMobileMenu}
+					>Blog</a
+				>
+				<a
+					href="/about"
+					class="mobile-nav-link"
+					onclick={toggleMobileMenu}>About</a
+				>
 			</div>
 		{/if}
 	</header>
@@ -65,14 +88,19 @@
 			<div class="footer-content">
 				<div class="footer-section">
 					<p class="text-muted">
-						&copy; 2025 On The Stack. Built with 
-						<span class="text-accent">SvelteKit</span> & 
+						&copy; 2025 On The Stack. Built with
+						<span class="text-accent">SvelteKit</span> &
 						<span class="text-secondary">❤️</span>
 					</p>
 				</div>
 				<div class="footer-section">
 					<div class="footer-links">
-						<a href="https://github.com/patrickmfurbert" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+						<a
+							href="https://github.com/patrickmfurbert"
+							target="_blank"
+							rel="noopener"
+							class="footer-link">GitHub</a
+						>
 					</div>
 				</div>
 			</div>
@@ -93,6 +121,28 @@
 		position: sticky;
 		top: 0;
 		z-index: 100;
+	}
+
+	.header-image {
+		display: flex;
+		align-items: center;
+		margin-right: var(--spacing-md);
+	}
+
+	.header-img {
+		height: 40px;
+		width: auto;
+		object-fit: contain;
+		opacity: 0.9;
+		transition: var(--transition-fast);
+		image-rendering: pixelated; /* Keeps pixel art crisp */
+		image-rendering: -moz-crisp-edges;
+		image-rendering: crisp-edges;
+	}
+
+	.header-img:hover {
+		opacity: 1;
+		transform: scale(1.1);
 	}
 
 	.nav {
@@ -242,6 +292,17 @@
 	@media (min-width: 641px) {
 		.mobile-nav {
 			display: none !important;
+		}
+	}
+
+	/* Mobile adjustments */
+	@media (max-width: 640px) {
+		.header-image {
+			margin-right: var(--spacing-sm);
+		}
+
+		.header-img {
+			height: 32px; /* Slightly smaller on mobile */
 		}
 	}
 </style>

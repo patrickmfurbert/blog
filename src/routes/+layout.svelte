@@ -1,6 +1,6 @@
 ﻿<script lang="ts">
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/my-favicon.png';
 
 	let { children } = $props();
 	let mobileMenuOpen = $state(false);
@@ -72,9 +72,7 @@
 				</div>
 				<div class="footer-section">
 					<div class="footer-links">
-						<a href="https://github.com" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-						<a href="https://twitter.com" target="_blank" rel="noopener" class="footer-link">Twitter</a>
-						<a href="https://onthestack.io/rss.xml" class="footer-link">RSS</a>
+						<a href="https://github.com/patrickmfurbert" target="_blank" rel="noopener" class="footer-link">GitHub</a>
 					</div>
 				</div>
 			</div>

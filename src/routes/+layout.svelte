@@ -36,7 +36,6 @@
 
 			<!-- Desktop Navigation -->
 			<div class="nav-links desktop-nav">
-				<a href="/blog" class="nav-link">Blog</a>
 				<a href="/about" class="nav-link">About</a>
 			</div>
 

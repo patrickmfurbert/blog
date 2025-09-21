@@ -16,7 +16,7 @@
 	<div class="container">
 		<h1 class="page-title">
 			<span class="text-accent">&lt;</span>
-			Blog Posts
+			Posts
 			<span class="text-accent">/&gt;</span>
 		</h1>
 		<p class="page-description text-muted">

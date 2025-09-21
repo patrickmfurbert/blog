@@ -43,12 +43,16 @@
 								> Loading developer profile...
 								<span class="cursor animate-pulse">|</span>
 							</p>
+
+							<p>
+								Under construction... more about me coming soon!
+							</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<section class="mission-section">
+			<!-- <section class="mission-section">
 				<div class="card">
 					<h2 class="text-secondary">Our Mission</h2>
 					<p>
@@ -62,9 +66,9 @@
 						development landscape at onthestack.io.
 					</p>
 				</div>
-			</section>
+			</section> -->
 
-			<section class="values-section">
+			<!-- <section class="values-section">
 				<h2 class="text-center mb-8">Core Values</h2>
 				<div class="values-grid">
 					<div class="value-card card">
@@ -103,9 +107,9 @@
 						</p>
 					</div>
 				</div>
-			</section>
+			</section> -->
 
-			<section class="tech-section">
+			<!-- <section class="tech-section">
 				<div class="card">
 					<h2 class="text-accent">Built With</h2>
 					<p class="mb-4">
@@ -144,9 +148,9 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 
-			<section class="contact-section">
+			<!-- <section class="contact-section">
 				<div class="card text-center">
 					<h2 class="text-accent mb-4">Get In Touch</h2>
 					<p class="mb-8">
@@ -165,7 +169,7 @@
 						</a>
 					</div>
 				</div>
-			</section>
+			</section> -->
 		</div>
 	</div>
 </div>

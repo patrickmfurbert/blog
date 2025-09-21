@@ -42,6 +42,8 @@ Here's a great introduction to SvelteKit:
       title="SvelteKit Crash Course" 
       frameborder="0" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      width="560" 
+      height="315"
       allowfullscreen>
     </iframe>
   </div>

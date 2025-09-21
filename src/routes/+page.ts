@@ -1,4 +1,4 @@
-import type { PageLoad } from './$types';
+import type { PageLoad } from './blog/$types';
 
 export const load: PageLoad = async () => {
 	// Get all markdown files from the posts directory

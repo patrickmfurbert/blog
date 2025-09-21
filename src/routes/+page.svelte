@@ -1,348 +1,234 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData } from './blog/$types';
 	
 	let { data } = $props() as { data: PageData };
 </script>
 
 <svelte:head>
-	<title>On The Stack - Welcome to the Terminal</title>
-	<meta name="description" content="A retro-themed developer blog exploring code, technology, and digital adventures. Step into the terminal at onthestack.io and explore the world of programming." />
-	<meta property="og:title" content="On The Stack - Welcome to the Terminal" />
-	<meta property="og:description" content="A retro-themed developer blog exploring code, technology, and digital adventures." />
+	<title>Blog Posts - On The Stack</title>
+	<meta name="description" content="Browse all blog posts about web development, programming, and technology insights on onthestack.io." />
+	<meta property="og:title" content="Blog Posts - On The Stack" />
 	<meta property="og:url" content="https://onthestack.io" />
 	<link rel="canonical" href="https://onthestack.io" />
 </svelte:head>
 
-<div class="hero">
+<div class="blog-header">
 	<div class="container">
-		<div class="hero-content">
-			<div class="terminal-window">
-				<div class="terminal-header">
-					<div class="terminal-controls">
-						<span class="terminal-dot red"></span>
-						<span class="terminal-dot yellow"></span>
-						<span class="terminal-dot green"></span>
-					</div>
-					<div class="terminal-title">onthestack@terminal:~$</div>
-				</div>
-				<div class="terminal-body">
-					<div class="terminal-line">
-						<span class="prompt">$</span>
-						<span class="command">whoami</span>
-					</div>
-					<div class="terminal-output">developer@onthestack.io</div>
-					
-					<div class="terminal-line">
-						<span class="prompt">$</span>
-						<span class="command">ls -la blog/</span>
-					</div>
-					<div class="terminal-output">
-						{#each data.posts as post}
-							<div class="file-entry">
-								<span class="permissions">-rw-r--r--</span>
-								<span class="date">{new Date(post.date).toLocaleDateString()}</span>
-								<a href="/blog/{post.slug}" class="filename">{post.title}</a>
-							</div>
-						{/each}
-					</div>
-					
-					<div class="terminal-line">
-						<span class="prompt">$</span>
-						<span class="command typing">echo "Welcome to onthestack.io..."</span>
-						<span class="cursor animate-pulse">|</span>
-					</div>
-				</div>
-			</div>
-		</div>
+		<h1 class="page-title">
+			<span class="text-accent">&lt;</span>
+			Blog Posts
+			<span class="text-accent">/&gt;</span>
+		</h1>
+		<p class="page-description text-muted">
+			Exploring code, technology, and digital adventures one post at a time.
+		</p>
 	</div>
 </div>
 
-<!-- <section class="features">
+<section class="blog-content">
 	<div class="container">
-		<h2 class="text-center mb-8">
-			<span class="text-accent">&lt;</span>
-			Features
-			<span class="text-accent">/&gt;</span>
-		</h2>
-		
-		<div class="features-grid">
-			<div class="feature-card card">
-				<h3 class="text-secondary">📝 Markdown Powered</h3>
-				<p>Write your posts in markdown with full support for code syntax highlighting and custom components.</p>
+		{#if data.posts.length > 0}
+			<div class="posts-grid">
+				{#each data.posts as post}
+					<article class="post-card card">
+						<div class="post-meta">
+							<time class="post-date text-muted" datetime={post.date}>
+								{new Date(post.date).toLocaleDateString('en-US', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric'
+								})}
+							</time>
+							{#if post.readingTime}
+								<span class="reading-time text-muted">
+									• {post.readingTime}
+								</span>
+							{/if}
+						</div>
+						
+						<h2 class="post-title">
+							<a href="/blog/{post.slug}" class="post-link">
+								{post.title}
+							</a>
+						</h2>
+						
+						{#if post.description}
+							<p class="post-description text-muted">
+								{post.description}
+							</p>
+						{/if}
+						
+						{#if post.tags && post.tags.length > 0}
+							<div class="post-tags">
+								{#each post.tags as tag}
+									<span class="tag">#{tag}</span>
+								{/each}
+							</div>
+						{/if}
+						
+						<div class="post-footer">
+							<a href="/blog/{post.slug}" class="read-more btn btn-secondary">
+								Read Post →
+							</a>
+						</div>
+					</article>
+				{/each}
 			</div>
-			
-			<div class="feature-card card">
-				<h3 class="text-accent">🚀 Lightning Fast</h3>
-				<p>Built with SvelteKit for optimal performance and seamless navigation between pages.</p>
+		{:else}
+			<div class="empty-state">
+				<div class="empty-content">
+					<h2 class="text-accent">No Posts Yet</h2>
+					<p class="text-muted">
+						The blog is being prepared. Check back soon for exciting content!
+					</p>
+				</div>
 			</div>
-			
-			<div class="feature-card card">
-				<h3 class="text-secondary">📱 Mobile First</h3>
-				<p>Responsive design that looks great on all devices, from smartphones to desktop displays.</p>
-			</div>
-			
-			<div class="feature-card card">
-				<h3 class="text-accent">🎨 Retro Aesthetic</h3>
-				<p>Classic terminal-inspired design with a modern twist and smooth animations.</p>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="tech-stack">
-	<div class="container">
-		<h2 class="text-center mb-8">Tech Stack</h2>
-		<div class="tech-grid">
-			<div class="tech-item">
-				<div class="tech-icon">⚡</div>
-				<span>SvelteKit</span>
-			</div>
-			<div class="tech-item">
-				<div class="tech-icon">📝</div>
-				<span>MDsveX</span>
-			</div>
-			<div class="tech-item">
-				<div class="tech-icon">🎨</div>
-				<span>CSS3</span>
-			</div>
-			<div class="tech-item">
-				<div class="tech-icon">📦</div>
-				<span>TypeScript</span>
-			</div>
-			<div class="tech-item">
-				<div class="tech-icon">🚀</div>
-				<span>Netlify</span>
-			</div>
-		</div>
-	</div>
-</section> -->
-
-<section class="cta">
-	<div class="container text-center">
-		<h2 class="mb-4">Ready to Dive Into the Code?</h2>
-		<p class="mb-8 text-lg text-muted">
-			Explore the latest posts about web development, programming tips, and technology insights.
-		</p>
-		<div class="cta-buttons">
-			<a href="/blog" class="btn btn-accent">Browse All Posts</a>
-			<a href="/about" class="btn btn-secondary">Learn More</a>
-		</div>
+		{/if}
 	</div>
 </section>
 
 <style>
-	.hero {
-		padding: var(--spacing-3xl) 0;
+	.blog-header {
+		padding: var(--spacing-3xl) 0 var(--spacing-xl) 0;
+		text-align: center;
 		background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
 	}
 
-	.hero-content {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		min-height: 60vh;
-	}
-
-	.terminal-window {
-		background-color: var(--color-bg-secondary);
-		border: var(--border-width) solid var(--color-border);
-		border-radius: var(--border-radius);
-		max-width: 800px;
-		width: 100%;
-		box-shadow: var(--shadow-glow);
-	}
-
-	.terminal-header {
-		background-color: var(--color-bg-tertiary);
-		padding: var(--spacing-md);
-		border-bottom: 1px solid var(--color-border);
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-md);
-		border-radius: var(--border-radius) var(--border-radius) 0 0;
-	}
-
-	.terminal-controls {
-		display: flex;
-		gap: var(--spacing-sm);
-	}
-
-	.terminal-dot {
-		width: 12px;
-		height: 12px;
-		border-radius: 50%;
-	}
-
-	.red { background-color: #ff5f56; }
-	.yellow { background-color: #ffbd2e; }
-	.green { background-color: #27ca3f; }
-
-	.terminal-title {
-		color: var(--color-text-muted);
-		font-size: var(--font-size-sm);
-	}
-
-	.terminal-body {
-		padding: var(--spacing-lg);
-		font-family: var(--font-mono);
-	}
-
-	.terminal-line {
-		margin-bottom: var(--spacing-sm);
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-sm);
-	}
-
-	.prompt {
-		color: var(--color-accent);
-		font-weight: bold;
-	}
-
-	.command {
-		color: var(--color-text-primary);
-	}
-
-	.typing {
-		color: var(--color-accent-secondary);
-	}
-
-	.cursor {
-		color: var(--color-accent);
-		font-weight: bold;
-	}
-
-	.terminal-output {
-		margin: var(--spacing-sm) 0 var(--spacing-md) var(--spacing-lg);
-		color: var(--color-text-secondary);
-	}
-
-	.file-entry {
-		display: flex;
-		gap: var(--spacing-md);
-		margin-bottom: var(--spacing-xs);
-		font-size: var(--font-size-sm);
-	}
-
-	.permissions {
-		color: var(--color-text-muted);
-		min-width: 80px;
-	}
-
-	.date {
-		color: var(--color-text-muted);
-		min-width: 100px;
-	}
-
-	.filename {
-		color: var(--color-accent-secondary);
-	}
-
-	.features {
-		padding: var(--spacing-3xl) 0;
-	}
-
-	.features-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: var(--spacing-xl);
-	}
-
-	.feature-card {
-		text-align: center;
-	}
-
-	.feature-card h3 {
+	.page-title {
 		margin-bottom: var(--spacing-md);
+		font-size: var(--font-size-3xl);
 	}
 
-	.tech-stack {
-		padding: var(--spacing-3xl) 0;
-		background-color: var(--color-bg-secondary);
+	.page-description {
+		font-size: var(--font-size-lg);
+		max-width: 600px;
+		margin: 0 auto;
 	}
 
-	.tech-grid {
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
+	.blog-content {
+		padding: var(--spacing-2xl) 0;
+	}
+
+	.posts-grid {
+		display: grid;
 		gap: var(--spacing-xl);
+		max-width: 800px;
+		margin: 0 auto;
 	}
 
-	.tech-item {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: var(--spacing-sm);
-		padding: var(--spacing-lg);
-		background-color: var(--color-bg-tertiary);
-		border: 1px solid var(--color-border);
-		border-radius: var(--border-radius);
+	.post-card {
 		transition: var(--transition-slow);
 	}
 
-	.tech-item:hover {
-		border-color: var(--color-border-hover);
+	.post-card:hover {
 		transform: translateY(-2px);
+		border-color: var(--color-border-hover);
 	}
 
-	.tech-icon {
-		font-size: var(--font-size-2xl);
+	.post-meta {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-md);
+		font-size: var(--font-size-sm);
 	}
 
-	.cta {
-		padding: var(--spacing-3xl) 0;
+	.post-title {
+		margin-bottom: var(--spacing-md);
+		font-size: var(--font-size-xl);
 	}
 
-	.cta-buttons {
+	.post-link {
+		color: var(--color-text-primary);
+		text-decoration: none;
+		border-bottom: 2px solid transparent;
+		transition: var(--transition-fast);
+	}
+
+	.post-link:hover {
+		color: var(--color-accent);
+		border-bottom-color: var(--color-accent);
+	}
+
+	.post-description {
+		margin-bottom: var(--spacing-lg);
+		line-height: 1.7;
+	}
+
+	.post-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.tag {
+		background-color: var(--color-bg-tertiary);
+		color: var(--color-accent-secondary);
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border-radius: var(--border-radius);
+		font-size: var(--font-size-sm);
+		border: 1px solid var(--color-border);
+	}
+
+	.post-footer {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: auto;
+	}
+
+	.read-more {
+		font-size: var(--font-size-sm);
+		padding: var(--spacing-sm) var(--spacing-md);
+	}
+
+	.empty-state {
 		display: flex;
 		justify-content: center;
-		gap: var(--spacing-lg);
-		flex-wrap: wrap;
+		align-items: center;
+		min-height: 400px;
+	}
+
+	.empty-content {
+		text-align: center;
+		max-width: 400px;
+	}
+
+	.empty-content h2 {
+		margin-bottom: var(--spacing-md);
+		font-size: var(--font-size-2xl);
 	}
 
 	/* Mobile Styles */
 	@media (max-width: 640px) {
-		.hero {
+		.blog-header {
 			padding: var(--spacing-xl) 0;
 		}
 
-		.hero-content {
-			min-height: 50vh;
+		.page-title {
+			font-size: var(--font-size-2xl);
 		}
 
-		.terminal-window {
-			margin: 0 var(--spacing-sm);
+		.page-description {
+			font-size: var(--font-size-base);
 		}
 
-		.terminal-body {
-			padding: var(--spacing-md);
-		}
-
-		.file-entry {
+		.post-meta {
 			flex-direction: column;
+			align-items: flex-start;
 			gap: var(--spacing-xs);
 		}
 
-		.permissions, .date {
-			min-width: auto;
+		.post-title {
+			font-size: var(--font-size-lg);
 		}
 
-		.features-grid {
-			grid-template-columns: 1fr;
+		.posts-grid {
 			gap: var(--spacing-lg);
 		}
 
-		.tech-grid {
-			gap: var(--spacing-md);
-		}
-
-		.tech-item {
-			min-width: 120px;
-		}
-
-		.cta-buttons {
-			flex-direction: column;
-			align-items: center;
+		.post-footer {
+			justify-content: center;
 		}
 	}
 </style>

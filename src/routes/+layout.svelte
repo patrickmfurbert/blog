@@ -10,6 +10,7 @@
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
 	}
+
 </script>
 
 <svelte:head>

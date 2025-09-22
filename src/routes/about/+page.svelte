@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>About - On The Stack</title>
+	<title>On The Stack - About</title>
 	<meta name="description" content="Learn about On The Stack - a nostalgic journey through modern web development with classic terminal aesthetics at onthestack.io." />
 	<meta property="og:title" content="About - On The Stack" />
 	<meta property="og:url" content="https://onthestack.io/about" />

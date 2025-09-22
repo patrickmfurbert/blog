@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Blog Posts - On The Stack</title>
+	<title>On The Stack - Blog</title>
 	<meta name="description" content="Browse all blog posts about web development, programming, and technology insights on onthestack.io." />
 	<meta property="og:title" content="Blog Posts - On The Stack" />
 	<meta property="og:url" content="https://onthestack.io" />
@@ -20,7 +20,7 @@
 			<span class="text-accent">/&gt;</span>
 		</h1>
 		<p class="page-description text-muted">
-			Exploring code, technology, and digital adventures one post at a time.
+			Exploring code, technology, and gaming one post at a time.
 		</p>
 	</div>
 </div>

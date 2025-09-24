@@ -108,9 +108,7 @@
 					class="mobile-nav-link"
 					onclick={toggleMobileMenu}>About</a
 				>
-				<button class="mobile-theme-toggle" onclick={() => { toggleTheme(); toggleMobileMenu(); }}>
-					{isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
-				</button>
+
 			</div>
 		{/if}
 	</header>
@@ -401,6 +399,7 @@
 	@media (max-width: 640px) {
 		.header-image {
 			margin-left: var(--spacing-sm);
+			margin-right: -var(--spacing-sm);
 		}
 
 		.header-img {

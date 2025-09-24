@@ -4,12 +4,38 @@
 
 	let { children } = $props();
 	let mobileMenuOpen = $state(false);
+	let isDarkMode = $state(true); // Default to dark mode
 
-	import headerImage from "$lib/assets/space-game-character-pixels_42117.png";
+	import whiteheaderImage from "$lib/assets/space-game-character-pixels_42117.png";
+	import blackheaderImage from "$lib/assets/space-game-character-pixels_42117_dark.png";
 
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
 	}
+
+	function toggleTheme() {
+		isDarkMode = !isDarkMode;
+		// Apply theme to document
+		document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+		// Save preference to localStorage
+		localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+	}
+
+	// Initialize theme on mount
+	function initializeTheme() {
+		if (typeof window !== 'undefined') {
+			const savedTheme = localStorage.getItem('theme');
+			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			
+			isDarkMode = savedTheme ? savedTheme === 'dark' : prefersDark;
+			document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+		}
+	}
+
+	// Run on mount
+	$effect(() => {
+		initializeTheme();
+	});
 
 </script>
 
@@ -31,13 +57,18 @@
 <div class="app">
 	<header class="header">
 		<nav class="nav container">
-			<div class="header-image">
+			<button 
+				class="header-image theme-toggle" 
+				onclick={toggleTheme}
+				title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+				aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+			>
 				<img
-					src={headerImage}
+					src={isDarkMode ? whiteheaderImage : blackheaderImage}
 					alt="Pixel character"
 					class="header-img"
 				/>
-			</div>
+			</button>
 
 			<div class="nav-brand">
 				<a href="/" class="nav-logo">
@@ -51,6 +82,7 @@
 			<!-- Desktop Navigation -->
 			<div class="nav-links desktop-nav">
 				<a href="/about" class="nav-link">About</a>
+
 			</div>
 
 			<!-- Mobile Menu Button -->
@@ -76,6 +108,9 @@
 					class="mobile-nav-link"
 					onclick={toggleMobileMenu}>About</a
 				>
+				<button class="mobile-theme-toggle" onclick={() => { toggleTheme(); toggleMobileMenu(); }}>
+					{isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+				</button>
 			</div>
 		{/if}
 	</header>
@@ -128,6 +163,10 @@
 		display: flex;
 		align-items: center;
 		margin-right: var(--spacing-md);
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0;
 	}
 
 	.header-img {
@@ -166,7 +205,27 @@
 	.desktop-nav {
 		display: flex;
 		gap: var(--spacing-xl);
+		align-items: center;
 	}
+
+	/* Review and edit/remove */
+	/* .theme-toggle {
+		background: none;
+		border: 2px solid var(--color-border);
+		color: var(--color-text-primary);
+		font-size: 1.2em;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border-radius: var(--border-radius);
+		cursor: pointer;
+		transition: var(--transition-fast);
+		margin-left: var(--spacing-md);
+	}
+
+	.theme-toggle:hover {
+		background-color: var(--color-bg-tertiary);
+		border-color: var(--color-accent);
+		transform: scale(1.1);
+	} */
 
 	.nav-link {
 		font-weight: 600;
@@ -218,6 +277,27 @@
 
 	.mobile-nav-link:last-child {
 		border-bottom: none;
+	}
+
+	.mobile-theme-toggle {
+		display: block;
+		width: 100%;
+		background: none;
+		border: 2px solid var(--color-border);
+		color: var(--color-text-primary);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		padding: var(--spacing-md);
+		margin-top: var(--spacing-sm);
+		border-radius: var(--border-radius);
+		cursor: pointer;
+		transition: var(--transition-fast);
+	}
+
+	.mobile-theme-toggle:hover {
+		background-color: var(--color-bg-secondary);
+		border-color: var(--color-accent);
 	}
 
 	.main {

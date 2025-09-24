@@ -254,6 +254,27 @@
 		color: var(--color-text-secondary);
 	}
 
+		
+	:global(.post-content p:has(img) img) {
+		display: block;
+		max-width: 100%;
+		height: auto;
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		margin: 2rem auto;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	:global(.post-content p:has(em):has(img) em) {
+		display: block;
+		text-align: center;
+		font-size: 0.875rem;
+		color: var(--text-muted);
+		margin-top: -1.5rem;
+		margin-bottom: 2rem;
+		font-style: italic;
+	}
+
 	/* Mobile Styles */
 	@media (max-width: 640px) {
 		.desktop-nav {

@@ -9,7 +9,10 @@
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"publish": "npm run build && git add . && git commit -m \"📝 Publish new blog post\" && git push",
+		"post": "npm run build && git add . && git commit -m \"✨ Add new blog post\" && git push",
+		"update": "git add . && git commit -m \"📝 Update blog content\" && git push"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.0.0",

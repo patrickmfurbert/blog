@@ -277,7 +277,7 @@
 		border-bottom: none;
 	}
 
-	.mobile-theme-toggle {
+	/* .mobile-theme-toggle {
 		display: block;
 		width: 100%;
 		background: none;
@@ -296,7 +296,7 @@
 	.mobile-theme-toggle:hover {
 		background-color: var(--color-bg-secondary);
 		border-color: var(--color-accent);
-	}
+	} */
 
 	.main {
 		flex: 1;

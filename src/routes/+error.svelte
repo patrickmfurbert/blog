@@ -238,9 +238,9 @@
 		color: var(--color-accent-secondary);
 	}
 
-	.filename a {
+	/* .filename a {
 		color: var(--color-accent-secondary);
-	}
+	} */
 
 	.suggestions {
 		color: var(--color-text-secondary);

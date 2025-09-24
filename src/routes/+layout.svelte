@@ -400,7 +400,7 @@
 	/* Mobile adjustments */
 	@media (max-width: 640px) {
 		.header-image {
-			margin-right: var(--spacing-sm);
+			margin-left: var(--spacing-sm);
 		}
 
 		.header-img {

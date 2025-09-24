@@ -6,8 +6,6 @@ tags: ['ai', 'blog', 'development', 'learning', 'personal']
 readingTime: '4 min read'
 ---
 
-# Building My First Blog: Learning to Code with AI
-
 Hi, I'm Patrick! This marks my first attempt at building a blog completely from scratch. My goal is to develop a habit of learning to code alongside AI tools, documenting the journey as I go.
 
 I've worked with various technologies in the past – SpringBoot, React, Svelte – and have deployed projects on Netlify before. But this time, I wanted to embrace AI as a true coding partner rather than just an occasional helper.

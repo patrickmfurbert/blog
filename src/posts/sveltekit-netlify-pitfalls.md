@@ -6,8 +6,6 @@ tags: ['sveltekit', 'netlify', 'copilot', 'static-site', 'deployment']
 readingTime: '7 min read'
 ---
 
-# Pitfalls Creating a Static Blog with SvelteKit and Copilot
-
 I recently embarked on creating a static blog using SvelteKit alongside GitHub Copilot, with plans to deploy it on Netlify. While the general process seemed straightforward, I encountered several pitfalls that I wish I'd known about beforehand.
 
 This post shares the challenges I faced and the solutions I discovered, so you can avoid the same headaches when building your own SvelteKit static site.

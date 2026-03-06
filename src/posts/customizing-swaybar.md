@@ -1,7 +1,7 @@
 ---
 title: 'Customizing the Swaybar: Battery and Volume from Scratch'
 description: 'How I built a minimal, fully understood swaybar status line with battery status, volume control, and mute detection — no plugins required.'
-date: '2025-03-06'
+date: '2026-03-06'
 tags: ['linux', 'sway', 'wayland', 'terminal', 'dotfiles']
 readingTime: '5 min read'
 ---

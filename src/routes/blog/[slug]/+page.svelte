@@ -22,7 +22,8 @@
                     {new Date(data.meta.date).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
-                        day: 'numeric'
+                        day: 'numeric',
+                        timeZone: 'UTC'
                     })}
                 </time>
                 {#if data.meta.readingTime}

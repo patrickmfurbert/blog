@@ -45,7 +45,7 @@
 							</p>
 
 							<p>
-								I'm a software engineer at Paychex in Rochester, NY, working on AI/ML tooling and MCP server infrastructure. My day-to-day is Java and Spring Boot on the backend — Oracle, Kafka, MongoDB, Dapr, OpenShift — with Python when the problem calls for it. I build the pipes that other systems talk through.
+								I'm a software engineer at Paychex in Rochester, NY, working on AI/ML tooling and MCP server infrastructure. My day-to-day is Python for the AI/ML side and Java and Spring Boot on the backend — Oracle, Kafka, MongoDB, Dapr, OpenShift. I build the pipes that other systems talk through.
 							</p>
 
 							<p>

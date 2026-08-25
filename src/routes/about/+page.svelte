@@ -49,7 +49,7 @@
 							</p>
 
 							<p>
-								I came into software from a different career path — I spent years in nursing and dialysis before making the switch. That background shapes how I think about systems: reliability matters, failure modes matter, and the person depending on the output matters. I also mentor students who are earlier in that transition than I am.
+								I came into software from a different career path — I spent years in nursing and dialysis before making the switch. That background shapes how I think about systems: reliability matters, failure modes matter, and the person depending on the output matters. I also mentor students in robotics.
 							</p>
 
 							<p>

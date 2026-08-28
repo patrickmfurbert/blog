@@ -185,30 +185,6 @@ Prefill, which is what agentic workloads live and die on:
 
 Real-world conversational numbers: 17-25 tok/s generation depending on context length and how lucky the draft acceptance is, and 327-720 tok/s prefill. Sustained under an agent loop that keeps the KV cache warm, it settles around 19-21.
 
-## Running It as an Agent: Qwen Code CLI
-
-Inference benchmarks are half the story. The other half is whether anything can drive the model well, so I pointed [Qwen Code](https://github.com/QwenLM/qwen-code) at the server as an OpenAI-compatible endpoint.
-
-```bash
-npm install -g @qwen-code/qwen-code
-
-export OPENAI_BASE_URL="http://localhost:8080/v1"
-export OPENAI_API_KEY="local"
-export OPENAI_MODEL="qwen38-flash-next"
-```
-
-Qwen Code is a full agentic harness — file editing, shell execution, subagents, MCP servers — which makes it a much harder test than a chat loop. Some things I learned.
-
-**Use the harness the model was trained with.** This was the biggest single factor. Qwen's post-training data includes its own tool-calling conventions, and Qwen Code's tool names and prompt shape line up with that. When I drove the same model through a differently-shaped harness, tool call validity dropped noticeably — same weights, same server, more malformed calls. With hosted models you can get away with harness mismatch because they're RL'd against many harnesses. A 6B-active local model has much less slack there.
-
-**Subagents are where local models fall down.** Qwen Code can fan work out to subagents, and that path is where this model struggled most. A subagent gets a fresh, unfamiliar system prompt and a tool schema that differs from the parent's — and the model handles the unfamiliar framing far worse than the hosted frontier models do. It loses track of whether it's supposed to report back or wait, it loses track of which tools belong to it, and it's far more likely to narrate an action instead of making it. Hosted models have been trained on enormous diversity of tool schemas; this model has been trained on one. If your workflow depends on subagent fan-out, this is where a local model will disappoint you, and no amount of quantization tuning fixes it.
-
-**Parallel tool calls get serialized.** The model tends to emit one tool call per turn even when several are independent. Functionally fine, slower in wall-clock — each round trip pays its prefill. Forcing parallelism in the prompt helped a little; mostly it's a model behavior, not a harness bug.
-
-**Prefer fewer, bigger subagents.** Every subagent re-prefills its own context, and prefill at 327-720 tok/s is the expensive part of a local agent loop. Generation being slow doesn't matter much — nobody reads agent output at 20 tok/s. But re-reading a 40K-token context per subagent absolutely does. Because memory is cheap on this machine and prefill is not, the right shape is one big context and fewer handoffs — the opposite of the fan-out-everything instinct that hosted models with cheap prefill and expensive generation have trained people into.
-
-**Keep a fast model for the cheap work.** I still run the 35B MoE from the previous post on a second port for subtasks and tool-call-heavy work. The 125B is for planning, decomposition, and judging whether the output is any good. Same two-model architecture as before, just with a much better thinker. The router in [ai-tools](https://github.com/patrickmfurbert/ai-tools) handles splitting traffic between them.
-
 ## So What Does It Mean
 
 Qwen3.8-Flash-Next [scores above Claude Opus 4.6 on SWE-bench Verified](https://huggingface.co/Qwen/Qwen3.8-Flash-Next) — that's the published comparison, and it's the one line in this whole post that should matter to anyone watching where this is going. Frontier-class software engineering capability, in a file you can download, on a $3K machine that sits under a desk and draws 120W.

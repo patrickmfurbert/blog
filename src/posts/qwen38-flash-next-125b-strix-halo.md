@@ -46,6 +46,8 @@ One warning: carve-out changes need a cold boot, not a warm restart. Full power 
 rocm-smi --showmeminfo vram
 ```
 
+Kernel args: none — stock defaults, BIOS UMA carve-out does the work.
+
 With the model loaded, here's where the 96GB actually goes:
 
 | Allocation | Size |
@@ -57,6 +59,8 @@ With the model loaded, here's where the 96GB actually goes:
 | **Total of 96GB carve-out** | **~83 GB** |
 
 That's the whole model, its cache, and its draft head, with about 13GB of headroom. On a machine that costs less than a single good GPU.
+
+One caveat on the carve-out itself: this static 96GB split works, but it may not be the only way. AMD's own docs suggest GTT-backed shared memory can be more flexible than a fixed UMA carve-out — the pool isn't locked in at boot and can flex with what the workload needs. I'm still investigating whether a GTT-backed setup matches this one for stability and throughput; if it does, expect a follow-up post.
 
 ## ROCm 7.2.4 on gfx1151
 
@@ -73,7 +77,6 @@ cmake -S . -B build \
   -DGGML_HIP=ON \
   -DGPU_TARGETS=gfx1151 \
   -DGGML_HIP_NO_VMM=ON \
-  -DGGML_HIP_MMQ_MFMA=ON \
   -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release -j$(nproc)
 ```
@@ -107,6 +110,8 @@ The architecture string in the GGUF metadata is `qwen4exp`, and at time of writi
 [EngramHalo.cpp](https://github.com/Aristo94/EngramHalo.cpp) is Aristo94's llama.cpp fork that added `qwen4exp` support ahead of upstream, specifically targeting Strix Halo, plus a [matched MTP sidecar GGUF](https://huggingface.co/EasiiX/Qwen3.8-Flash-Next-MTP-Strix-Halo-GGUF) for the speculative decoding path — the draft heads ship as a separate file rather than baked into the main GGUF, which is why you need `--model-draft` pointing at a second file. I ran the fork for days while waiting on upstream.
 
 That wait is over. [PR #27742](https://github.com/ggml-org/llama.cpp/pull/27742) landed `qwen4exp` in mainline llama.cpp, so the architecture is now supported in the upstream build. I'd still point anyone at the fork if you're on this exact hardware, because the Halo-specific tuning and the matching MTP sidecar workflow are the parts you want. But the fact that a brand-new architecture went from "no released build can load this" to merged upstream in the time it took me to write the last section is worth sitting with. That's the pace of this ecosystem.
+
+One tip from EasiiX, who publishes the MTP sidecar: pull the latest version of the fork. It ships a drop-behind loader that fixes the RAM squeeze during model load — the page-cache pile-up while reading a 70GB GGUF through is exactly the kind of thing a fixed carve-out makes painful.
 
 ## The GBNF Bug, or: Why Every Tool Call Took Nine Seconds
 
